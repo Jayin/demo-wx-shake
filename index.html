@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>微信摇一摇demo</title>
+</head>
+
+<body>
+    <section>
+        请摇一摇, 50%几率出现中奖声音
+    </section>
+
+    <audio src="./music/yao.mp3" id="audio-shake">
+    </audio>
+    <audio src="./music/zhong.mp3" id="audio-zhong">
+    </audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+
+    <script src="./js/shake.js"></script>
+
+    <script type="text/javascript">
+        (function($){
+
+            window.addEventListener('shake', function(evt) {
+                $('#audio-shake')[0].play()
+                var random = Math.random()
+                if(random<0.5){
+                    //中奖
+                    setTimeout(function(){
+                        $('#audio-zhong')[0].play()
+                    }, 1000)
+                }
+            }, false);
+
+            var myShakeEvent = new Shake({
+                threshold: 15, // optional shake strength threshold
+                timeout: 1000 // optional, determines the frequency of event generation
+            });
+            myShakeEvent.start();
+        })(jQuery);
+    </script>
+</body>
+
+</html>
